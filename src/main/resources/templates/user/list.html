@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Say Hello! - Extending Thymeleaf in 5 minutes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div class="container">
+		<h1>Spring boot Thymeleaf paging</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>이름</th>
+					<th>닉네임</th>
+					<th>주소</th>					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${list.content}">
+					<td th:text="${user.userName}">1</td>
+					<td th:text="${user.nickName}">1</td>
+					<td th:text="${user.address}">1</td>					
+				</tr>
+			</tbody>
+		</table>
+		<div class="table-pagination">
+			<ul class="pagination">
+				<li th:class="${list.number eq 0} ? 'disabled' : ''">
+					<a th:if="${not list.first}" th:href="@{${'/list'}(page=${list.number-1},size=${list.size})}">Previous</a>
+					<a th:if="${list.first}" href="javascript:void(0);">Previous</a>
+				</li>
+				<li th:each="pageNo : ${#numbers.sequence(0, list.totalPages - 1)}" th:class="${list.number eq pageNo}? 'active' : ''">
+					<a th:if="${list.number  eq pageNo}" href="javascript:void(0);"><span	th:text="${pageNo + 1}"></span></a>
+					<a th:if="${not (list.number  eq pageNo)}"	th:href="@{${'/list'}(page=${pageNo},size=${list.size})}">
+						<span th:text="${pageNo + 1}"></span>
+					</a>
+				</li>
+				<li	th:class="${list.number + 1 ge list.totalPages} ? 'disabled' : ''">
+					<a th:if="${not list.last}"	th:href="@{${'/list'}(page=${list.number+1},size=${list.size})}">Next</a>
+					<a th:if="${list.last}" href="javascript:void(0);">Next</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
