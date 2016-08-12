@@ -23,7 +23,7 @@ public class SpringJpaSampleApplication {
     @PostConstruct
     public void init() {
     	
-    	for (int i = 0 ; i < 10; i++) {
+    	for (int i = 0 ; i < 15; i++) {
     		User user = new User();
     		user.setUserName("kim"+ i);
     		user.setNickName("cowboy" + i);
